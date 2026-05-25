@@ -70,6 +70,7 @@
 | **DeepSeek** | ✅ 已支持 | [获取 API Key](https://platform.deepseek.com) |
 | **Qwen** | ✅ 已支持 | [获取 API Key](https://dashscope.console.aliyun.com) |
 | **OpenAI (GPT)** | ✅ 已支持 | [获取 API Key](https://platform.openai.com) |
+| **Ollama (本地)** | ✅ 已支持 | 本地地址: `http://127.0.0.1:11434/v1` |
 | **Claude** | ✅ 已支持 | [获取 API Key](https://console.anthropic.com) |
 | **Gemini** | ✅ 已支持 | [获取 API Key](https://aistudio.google.com) |
 | **Grok** | 🗓️ 计划中 | [获取 API Key](https://console.x.ai) |
@@ -113,7 +114,7 @@ cp config.example.yaml config.yaml
 
 ### 🧠 LLM 配置 (多提供商支持)
 
-本机器人支持 **8 种 LLM 提供商**，可通过环境变量或仪表盘设置进行配置：
+本机器人支持 **9 种 LLM 提供商**，可通过环境变量或仪表盘设置进行配置：
 
 #### 支持的提供商
 
@@ -121,6 +122,7 @@ cp config.example.yaml config.yaml
 |--------|------|------|------|--------------|
 | **DeepSeek** (推荐) | deepseek-chat | 💰 低 | ⚡ 快 | [platform.deepseek.com](https://platform.deepseek.com) |
 | **OpenAI** | gpt-4o, gpt-4o-mini | 💰💰💰 高 | ⚡ 快 | [platform.openai.com](https://platform.openai.com) |
+| **Ollama (本地)** | llama3.1, qwen2.5, mistral... | 💰 免费 (本地) | ⚡ 取决于硬件 | 本地地址: `http://127.0.0.1:11434/v1` |
 | **Claude** | claude-3-5-sonnet | 💰💰 中 | ⚡ 快 | [console.anthropic.com](https://console.anthropic.com) |
 | **通义千问** | qwen-turbo, qwen-plus | 💰 低 | ⚡ 快 | [dashscope.console.aliyun.com](https://dashscope.console.aliyun.com) |
 | **Gemini** | gemini-1.5-pro | 💰 低 | ⚡ 快 | [aistudio.google.com](https://aistudio.google.com) |
@@ -136,11 +138,12 @@ cp config.example.yaml config.yaml
 
 ```bash
 # 选择 LLM 提供商 (必填)
-LLM_PROVIDER=deepseek  # 可选: deepseek, openai, claude, qwen, gemini, kimi, minimax, glm
+LLM_PROVIDER=deepseek  # 可选: deepseek, openai, ollama, claude, qwen, gemini, kimi, minimax, glm
 
 # 配置对应提供商的 API Key
 DEEPSEEK_API_KEY=sk-xxx     # 使用 DeepSeek 时
 OPENAI_API_KEY=sk-xxx       # 使用 OpenAI 时
+OLLAMA_API_KEY=ollama       # 使用 Ollama 时可选（占位值即可）
 CLAUDE_API_KEY=sk-xxx       # 使用 Claude 时
 QWEN_API_KEY=sk-xxx         # 使用通义千问时
 GEMINI_API_KEY=xxx          # 使用 Gemini 时
@@ -424,7 +427,7 @@ data/
 
 **2025-12-24**:
 
-- ✅ **多 LLM 支持**: 新增 8 种 LLM 提供商支持 (DeepSeek, OpenAI, Claude, Qwen, Gemini, Kimi, MiniMax, GLM)。
+- ✅ **多 LLM 支持**: 新增 9 种 LLM 提供商支持 (DeepSeek, OpenAI, Ollama, Claude, Qwen, Gemini, Kimi, MiniMax, GLM)。
 - ✅ **多账户架构**: 新增 `src/exchanges/` 模块支持多交易所账户。
 
 **2025-12-20**:

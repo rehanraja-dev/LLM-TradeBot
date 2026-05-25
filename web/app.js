@@ -3828,6 +3828,7 @@ async function loadSettings() {
         // Multi-LLM Provider Keys
         const setIfExists = (id, val) => { const el = document.getElementById(id); if (el) el.value = safeVal(val); };
         setIfExists('cfg-openai-key', config.api_keys.openai_api_key);
+        setIfExists('cfg-ollama-key', config.api_keys.ollama_api_key);
         setIfExists('cfg-claude-key', config.api_keys.claude_api_key);
         setIfExists('cfg-qwen-key', config.api_keys.qwen_api_key);
         setIfExists('cfg-gemini-key', config.api_keys.gemini_api_key);
@@ -3870,6 +3871,7 @@ async function saveSettings() {
     const elBinanceSecret = document.getElementById('cfg-binance-secret');
     const elDeepseekKey = document.getElementById('cfg-deepseek-key');
     const elOpenaiKey = document.getElementById('cfg-openai-key');
+    const elOllamaKey = document.getElementById('cfg-ollama-key');
     const elClaudeKey = document.getElementById('cfg-claude-key');
     const elQwenKey = document.getElementById('cfg-qwen-key');
     const elGeminiKey = document.getElementById('cfg-gemini-key');
@@ -3889,6 +3891,7 @@ async function saveSettings() {
             binance_secret_key: elBinanceSecret ? elBinanceSecret.value : '',
             deepseek_api_key: elDeepseekKey.value,
             openai_api_key: elOpenaiKey ? elOpenaiKey.value : '',
+            ollama_api_key: elOllamaKey ? elOllamaKey.value : '',
             claude_api_key: elClaudeKey ? elClaudeKey.value : '',
             qwen_api_key: elQwenKey ? elQwenKey.value : '',
             gemini_api_key: elGeminiKey ? elGeminiKey.value : '',
@@ -4487,6 +4490,7 @@ function syncTradingModeButtons(isTestMode) {
     const providerKeyMap = {
         deepseek: 'deepseek_api_key',
         openai: 'openai_api_key',
+        ollama: 'ollama_api_key',
         claude: 'claude_api_key',
         qwen: 'qwen_api_key',
         gemini: 'gemini_api_key',
@@ -4512,6 +4516,7 @@ function syncTradingModeButtons(isTestMode) {
             const res = await apiFetch('/api/config');
             const cfg = await res.json();
             const provider = resolveProvider(cfg);
+            if (provider === 'ollama') return provider;
             const keyField = providerKeyMap[provider] || 'deepseek_api_key';
             const currentKey = cfg?.api_keys?.[keyField];
             if (hasMaskedKey(currentKey)) {

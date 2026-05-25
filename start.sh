@@ -49,8 +49,48 @@ source .env
 
 MISSING_VARS=()
 [ -z "$BINANCE_API_KEY" ] && MISSING_VARS+=("BINANCE_API_KEY")
-[ -z "$BINANCE_SECRET_KEY" ] && MISSING_VARS+=("BINANCE_SECRET_KEY")
-[ -z "$DEEPSEEK_API_KEY" ] && MISSING_VARS+=("DEEPSEEK_API_KEY")
+if [ -z "$BINANCE_SECRET_KEY" ] && [ -z "$BINANCE_API_SECRET" ]; then
+    MISSING_VARS+=("BINANCE_SECRET_KEY (or BINANCE_API_SECRET)")
+fi
+
+LLM_PROVIDER_LOWER=$(echo "${LLM_PROVIDER:-deepseek}" | tr '[:upper:]' '[:lower:]')
+case "$LLM_PROVIDER_LOWER" in
+    deepseek)
+        [ -z "$DEEPSEEK_API_KEY" ] && MISSING_VARS+=("DEEPSEEK_API_KEY")
+        ;;
+    openai)
+        [ -z "$OPENAI_API_KEY" ] && MISSING_VARS+=("OPENAI_API_KEY")
+        ;;
+    ollama)
+        # Ollama local OpenAI-compatible endpoint; api key can be optional/dummy.
+        ;;
+    claude)
+        [ -z "$CLAUDE_API_KEY" ] && [ -z "$ANTHROPIC_API_KEY" ] && MISSING_VARS+=("CLAUDE_API_KEY (or ANTHROPIC_API_KEY)")
+        ;;
+    qwen)
+        [ -z "$QWEN_API_KEY" ] && MISSING_VARS+=("QWEN_API_KEY")
+        ;;
+    gemini)
+        [ -z "$GEMINI_API_KEY" ] && MISSING_VARS+=("GEMINI_API_KEY")
+        ;;
+    kimi)
+        [ -z "$KIMI_API_KEY" ] && MISSING_VARS+=("KIMI_API_KEY")
+        ;;
+    minimax)
+        [ -z "$MINIMAX_API_KEY" ] && MISSING_VARS+=("MINIMAX_API_KEY")
+        ;;
+    glm)
+        [ -z "$GLM_API_KEY" ] && MISSING_VARS+=("GLM_API_KEY")
+        ;;
+    openrouter)
+        [ -z "$OPENROUTER_API_KEY" ] && MISSING_VARS+=("OPENROUTER_API_KEY")
+        ;;
+    none|disabled|off)
+        ;;
+    *)
+        MISSING_VARS+=("Valid LLM_PROVIDER")
+        ;;
+esac
 
 if [ ${#MISSING_VARS[@]} -gt 0 ]; then
     print_error "Missing required environment variables:"

@@ -16,6 +16,7 @@ from .kimi_client import KimiClient
 from .minimax_client import MiniMaxClient
 from .glm_client import GLMClient
 from .openrouter_client import OpenRouterClient
+from .ollama_client import OllamaClient
 
 
 # 注册所有支持的提供商
@@ -28,7 +29,8 @@ PROVIDERS: Dict[str, Type[BaseLLMClient]] = {
     "kimi": KimiClient,
     "minimax": MiniMaxClient,
     "glm": GLMClient,
-    "openrouter": OpenRouterClient
+    "openrouter": OpenRouterClient,
+    "ollama": OllamaClient
 }
 
 
@@ -37,7 +39,7 @@ def create_client(provider: str, config: LLMConfig) -> BaseLLMClient:
     工厂方法：根据 provider 创建对应客户端
     
     Args:
-        provider: 提供商名称 (openai, deepseek, claude, qwen, gemini, kimi, minimax, glm)
+        provider: 提供商名称 (openai, deepseek, claude, qwen, gemini, kimi, minimax, glm, openrouter, ollama)
         config: LLM 配置
         
     Returns:
