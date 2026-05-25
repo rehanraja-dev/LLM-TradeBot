@@ -90,7 +90,7 @@ class Config:
             env_provider = os.getenv('LLM_PROVIDER', '')
             active_provider = (env_provider or config_provider).lower()
             if active_provider == 'ollama':
-                llm_api_keys['ollama'] = os.getenv('OPENAI_API_KEY') or 'ollama'
+                llm_api_keys['ollama'] = 'ollama'
         self._config['llm']['api_keys'] = {k: v for k, v in llm_api_keys.items() if v}
 
         # Provider/model override via environment
