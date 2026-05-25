@@ -41,7 +41,8 @@ class ConfigManager:
                 "kimi_api_key": self._mask_key(env_vars.get('KIMI_API_KEY', '')),
                 "minimax_api_key": self._mask_key(env_vars.get('MINIMAX_API_KEY', '')),
                 "glm_api_key": self._mask_key(env_vars.get('GLM_API_KEY', '')),
-                "openrouter_api_key": self._mask_key(env_vars.get('OPENROUTER_API_KEY', ''))
+                "openrouter_api_key": self._mask_key(env_vars.get('OPENROUTER_API_KEY', '')),
+                "ollama_api_key": self._mask_key(env_vars.get('OLLAMA_API_KEY', ''))
             },
             "trading": {
                 "symbol": env_vars.get('TRADING_SYMBOLS', env_vars.get('TRADING_SYMBOL', 'AI500_TOP5')),
@@ -72,6 +73,7 @@ class ConfigManager:
                 "minimax_api_key": "MINIMAX_API_KEY",
                 "glm_api_key": "GLM_API_KEY",
                 "openrouter_api_key": "OPENROUTER_API_KEY",
+                "ollama_api_key": "OLLAMA_API_KEY",
                 "symbol": "TRADING_SYMBOLS",  # Support multiple symbols
                 "leverage": "LEVERAGE",
                 "run_mode": "RUN_MODE",

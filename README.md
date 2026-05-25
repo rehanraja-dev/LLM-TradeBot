@@ -194,7 +194,7 @@ Before you start, make sure you have:
 
 ### 🧠 LLM Configuration (Multi-Provider Support)
 
-The bot supports **8 LLM providers**. Configure via environment variables or Dashboard Settings:
+The bot supports **9 LLM providers**. Configure via environment variables or Dashboard Settings:
 
 #### Supported Providers
 
@@ -202,6 +202,7 @@ The bot supports **8 LLM providers**. Configure via environment variables or Das
 |----------|-------|------|-------|-------------|
 | **DeepSeek** (Recommended) | deepseek-chat | 💰 Low | ⚡ Fast | [platform.deepseek.com](https://platform.deepseek.com) |
 | **OpenAI** | gpt-4o, gpt-4o-mini | 💰💰💰 High | ⚡ Fast | [platform.openai.com](https://platform.openai.com) |
+| **Ollama (Local)** | llama3.1, qwen2.5, mistral... | 💰 Free (Local) | ⚡ Depends on hardware | Local: `http://127.0.0.1:11434/v1` |
 | **Claude** | claude-3-5-sonnet | 💰💰 Medium | ⚡ Fast | [console.anthropic.com](https://console.anthropic.com) |
 | **Qwen** | qwen-turbo, qwen-plus | 💰 Low | ⚡ Fast | [dashscope.console.aliyun.com](https://dashscope.console.aliyun.com) |
 | **Gemini** | gemini-1.5-pro | 💰 Low | ⚡ Fast | [aistudio.google.com](https://aistudio.google.com) |
@@ -217,11 +218,12 @@ Edit your `.env` file:
 
 ```bash
 # Select LLM Provider (required)
-LLM_PROVIDER=deepseek  # Options: deepseek, openai, claude, qwen, gemini, kimi, minimax, glm
+LLM_PROVIDER=deepseek  # Options: deepseek, openai, ollama, claude, qwen, gemini, kimi, minimax, glm
 
 # Configure API Key for your selected provider
 DEEPSEEK_API_KEY=sk-xxx     # if using DeepSeek
 OPENAI_API_KEY=sk-xxx       # if using OpenAI
+OLLAMA_API_KEY=ollama       # optional if using Ollama (dummy value is OK)
 CLAUDE_API_KEY=sk-xxx       # if using Claude
 QWEN_API_KEY=sk-xxx         # if using Qwen
 GEMINI_API_KEY=xxx          # if using Gemini
@@ -241,7 +243,7 @@ GLM_API_KEY=sk-xxx          # if using GLM
 
 ```yaml
 llm:
-  provider: "deepseek"  # or: openai, claude, qwen, gemini, kimi, minimax, glm
+  provider: "deepseek"  # or: openai, ollama, claude, qwen, gemini, kimi, minimax, glm
   model: "deepseek-chat"  # provider-specific model
   temperature: 0.3
   max_tokens: 2000
@@ -881,7 +883,7 @@ data/
 
 **2025-12-24**:
 
-- ✅ **Multi-LLM Support**: Added support for 8 LLM providers (DeepSeek, OpenAI, Claude, Qwen, Gemini, Kimi, MiniMax, GLM) with unified interface.
+- ✅ **Multi-LLM Support**: Added support for 9 LLM providers (DeepSeek, OpenAI, Ollama, Claude, Qwen, Gemini, Kimi, MiniMax, GLM) with unified interface.
 - ✅ **Dashboard LLM Settings**: Switch LLM provider and API keys directly from Dashboard Settings.
 - ✅ **Multi-Account Architecture**: New `src/exchanges/` module with `BaseTrader` abstraction for multi-exchange support.
 - ✅ **Account Manager**: Manage multiple trading accounts via Dashboard or `config/accounts.json`.

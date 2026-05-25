@@ -83,7 +83,13 @@ class Config:
             'minimax': os.getenv('MINIMAX_API_KEY'),
             'glm': os.getenv('GLM_API_KEY'),
             'openrouter': os.getenv('OPENROUTER_API_KEY'),
+            'ollama': os.getenv('OLLAMA_API_KEY'),
         }
+        if not llm_api_keys.get('ollama'):
+            provider_for_key = (self._config.get('llm', {}) or {}).get('provider', '').lower()
+            env_provider_for_key = (os.getenv('LLM_PROVIDER') or '').lower()
+            if provider_for_key == 'ollama' or env_provider_for_key == 'ollama':
+                llm_api_keys['ollama'] = os.getenv('OPENAI_API_KEY') or 'ollama'
         self._config['llm']['api_keys'] = {k: v for k, v in llm_api_keys.items() if v}
 
         # Provider/model override via environment

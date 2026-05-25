@@ -13,6 +13,8 @@ LLM 模块
 - Kimi (Moonshot)
 - MiniMax
 - GLM (智谱)
+- OpenRouter
+- Ollama (Local)
 
 使用示例：
 
@@ -42,6 +44,8 @@ from .gemini_client import GeminiClient
 from .kimi_client import KimiClient
 from .minimax_client import MiniMaxClient
 from .glm_client import GLMClient
+from .openrouter_client import OpenRouterClient
+from .ollama_client import OllamaClient
 
 __all__ = [
     # 核心接口
@@ -61,4 +65,6 @@ __all__ = [
     "KimiClient",
     "MiniMaxClient",
     "GLMClient",
+    "OpenRouterClient",
+    "OllamaClient",
 ]
