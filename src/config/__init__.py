@@ -86,9 +86,10 @@ class Config:
             'ollama': os.getenv('OLLAMA_API_KEY'),
         }
         if not llm_api_keys.get('ollama'):
-            provider_for_key = (self._config.get('llm', {}) or {}).get('provider', '').lower()
-            env_provider_for_key = (os.getenv('LLM_PROVIDER') or '').lower()
-            if provider_for_key == 'ollama' or env_provider_for_key == 'ollama':
+            config_provider = self._config.get('llm', {}).get('provider', '')
+            env_provider = os.getenv('LLM_PROVIDER', '')
+            active_provider = (env_provider or config_provider).lower()
+            if active_provider == 'ollama':
                 llm_api_keys['ollama'] = os.getenv('OPENAI_API_KEY') or 'ollama'
         self._config['llm']['api_keys'] = {k: v for k, v in llm_api_keys.items() if v}
 
